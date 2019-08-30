@@ -59,7 +59,6 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
     assert_not flash.empty?
     assert_redirected_to user
   end
-
   test "expired token" do
     get new_password_reset_path
     post password_resets_path,
@@ -73,6 +72,6 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
                             password_confirmation: "foobar" } }
     assert_response :redirect
     follow_redirect!
-    # assert_match /FILL_IN/i, response.body
+    assert_match "expired", response.body
   end
 end
